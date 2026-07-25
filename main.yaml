@@ -1,0 +1,44 @@
+name: Run Warframe Discord Bot
+
+on:
+  push:
+    branches: [ "main" ] # Triggers whenever you push to the main branch
+  workflow_dispatch:     # Allows you to trigger this manually from the GitHub UI
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-node-version: '3.11' # Adjust to your required Python version
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          # If you don't have a requirements.txt yet, uncomment the line below to install discord libraries:
+          # pip install discord.py requests
+
+      - name: Inject GitHub Secrets into config.json
+        env:
+          ALECA_TOKEN: ${{ secrets.ALECAFRAME_TOKEN }}
+          DISCORD_APP_ID: ${{ secrets.DISCORD_APPLICATION_ID }}
+          DISCORD_USER: ${{ secrets.DISCORD_USER_ID }}
+          DISCORD_BOT: ${{ secrets.DISCORD_BOT_TOKEN }}
+        run: |
+          # Modifies config.json in place using jq
+          jq \
+            '.alecaframe_token = env.ALECA_TOKEN |
+             .discord_application_id = env.DISCORD_APP_ID |
+             .discord_user_id = env.DISCORD_USER |
+             .discord_bot_token = env.DISCORD_BOT' \
+            config.json > temp.json && mv temp.json config.json
+
+      - name: Run Main Application
+        run: python main.py
