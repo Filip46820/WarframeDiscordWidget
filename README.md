@@ -15,7 +15,7 @@ This setup allows you to display live-updating stats like Platinum, Credits, End
 
 Before setting up the data fields, you must ensure your Discord account is prepared for experimental widgets.
 
-Please follow this [Guide](https://www.youtube.com/watch?v=gYv7D83u7yQ) here to properly set up a Discord application and unlock the necessary widget functionalities.#
+Please follow this [Guide](https://www.youtube.com/watch?v=gYv7D83u7yQ) here to properly set up a Discord application and unlock the necessary widget functionalities.
 
 To run this script, you need to have `Python` installed on your system. 
 Before running the script, you must install the required dependencies:
@@ -60,7 +60,7 @@ add the following fields. Ensure the Value Type is set to `String` for all entri
 ### Follow these steps to link your Warframe data to your Discord profile:
 
 1. **AlecaFrame Setup:**
-* Ensure AlecaFrame is installed and running on your PC. ( INFO: AlecaFrame dosnt need to be running 24/7)
+* Ensure AlecaFrame is installed and running on your PC. ( INFO: AlecaFrame needs to run if Warframe is open in order to update the data Otherwise it wont update  )
 * In AlecaFrame, navigate to the Stats tab.
    
 * Click on Create Public Link. Select the following resources: Platinum, Endo, Aya, Trades, Ducats, Account Data and Credits. and then Generate Link.
