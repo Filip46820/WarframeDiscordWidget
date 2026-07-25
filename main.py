@@ -6,7 +6,10 @@ import sys
 import threading
 from urllib.parse import urlparse, parse_qs
 from PIL import Image, ImageDraw
-import pystray
+try:
+    import pystray
+except Exception:
+    pystray = None
 
 BASE_DIR = os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__))
 CONFIG_PATH = os.path.join(BASE_DIR, "config.json")
@@ -64,7 +67,8 @@ def update_discord_widget(cfg, stats):
     requests.patch(url, headers=headers, json=payload, timeout=10).raise_for_status()
 
 def run_bot(icon):
-    icon.visible = True
+    if icon is not None:
+        icon.visible = True
     while True:
         try:
             cfg = load_config()
@@ -80,6 +84,11 @@ def create_image():
     return image
 
 def main():
+    if pystray is None:
+        print("System tray unavailable, running without tray icon.")
+        run_bot(None)
+        return
+
     icon = pystray.Icon("WarframeWidget", create_image(), "Warframe Stats", menu=pystray.Menu(
         pystray.MenuItem("Exit", lambda i: i.stop())
     ))
