@@ -23,7 +23,7 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           # If you don't have a requirements.txt yet, uncomment the line below to install discord libraries:
-          # pip install discord.py requests
+          pip install discord.py requests Pillow
 
       - name: Inject GitHub Secrets into config.json
         env:
