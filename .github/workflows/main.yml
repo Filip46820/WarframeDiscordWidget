@@ -5,6 +5,9 @@ on:
     branches: [ "main" ] # Triggers whenever you push to the main branch
   workflow_dispatch:     # Allows you to trigger this manually from the GitHub UI
 
+  schedule:
+    - cron: "0 0 */1 * *"
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
