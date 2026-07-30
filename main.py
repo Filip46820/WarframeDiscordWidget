@@ -69,12 +69,10 @@ def update_discord_widget(cfg, stats):
 def run_bot(icon):
     if icon is not None:
         icon.visible = True
-    while True:
         try:
             cfg = load_config()
             stats = fetch_warframe_stats(cfg["alecaframe_token"])
             update_discord_widget(cfg, stats)
-            time.sleep(cfg.get("update_interval_minutes", 5) * 60)
         except Exception as e:
             print(f"Fehler: {e}")
             time.sleep(60)
