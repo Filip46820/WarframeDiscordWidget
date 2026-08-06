@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-node-version: '3.11' # Adjust to your required Python version
+          python-version: '3.11' # Adjust to your required Python version
 
       - name: Install Dependencies
         run: |
@@ -42,6 +42,9 @@ jobs:
              .discord_user_id = env.DISCORD_USER |
              .discord_bot_token = env.DISCORD_BOT' \
             config.json > temp.json && mv temp.json config.json
+      - name: Verify config
+        run: |
+          cat config.json | jq 'del(.discord_bot_token, .alecaframe_token)'
 
       - name: Run Main Application
         run: python main.py
